@@ -4,7 +4,7 @@ using Domain.ValueTypes;
 
 namespace Domain.Customer
 {
-    internal class Customer
+    public class Customer
     {
         private readonly CustomerEntity _customerEntity;
         private readonly IList<MeteringPointEntity> _meteringPoints;

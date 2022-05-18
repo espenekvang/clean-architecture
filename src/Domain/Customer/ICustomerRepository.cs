@@ -2,7 +2,7 @@
 
 namespace Domain.Customer
 {
-    internal interface ICustomerRepository
+    public interface ICustomerRepository
     {
         public Customer FindBy(CustomerId customerId);
         public void Save(Customer customer);
