@@ -1,4 +1,5 @@
-﻿using Domain.MeteringPoint;
+﻿
+using Domain.MeteringPoint;
 using Domain.ValueTypes;
 
 namespace Domain.Customer
