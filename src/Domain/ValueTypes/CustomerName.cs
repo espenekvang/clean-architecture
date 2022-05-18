@@ -1,10 +1,10 @@
 ﻿namespace Domain.ValueTypes
 {
-    public readonly struct Name
+    public readonly struct CustomerName
     {
         public string Value { get; init; }
 
-        public Name(string value)
+        public CustomerName(string value)
         {
             Value = value;
         }

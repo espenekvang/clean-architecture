@@ -4,14 +4,14 @@ namespace Domain.Customer
 {
     public class CustomerEntity    
     {
-        public CustomerId Id { get; }
-        public Name Name { get; }
+        public CustomerId CustomerId { get; }
+        public CustomerName CustomerName { get; }
         public Country Country { get; }
 
-        public CustomerEntity(CustomerId id, Name name, Country country)
+        public CustomerEntity(CustomerName customerName, CustomerId customerId, Country country)
         {
-            Id = id;
-            Name = name;
+            CustomerId = customerId;
+            CustomerName = customerName;
             Country = country;
         }
     }

@@ -9,7 +9,7 @@ namespace Domain.Customer
         private readonly CustomerEntity _customerEntity;
         private readonly IList<MeteringPointEntity> _meteringPoints;
 
-        public CustomerId Id => _customerEntity.Id;
+        public CustomerId Id => _customerEntity.CustomerId;
 
         public Customer(CustomerEntity customerEntity)
         {
