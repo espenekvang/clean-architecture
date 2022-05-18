@@ -3,7 +3,7 @@ using Domain.ValueTypes;
 
 namespace UseCase.Customer
 {
-    internal class CreateCustomerUseCase
+    public class CreateCustomerUseCase
     {
         private readonly ICustomerRepository _customerRepository;
 
