@@ -4,9 +4,14 @@
     {
         public string Value { get; init; }
 
-        public CustomerName(string value)
+        private CustomerName(string value)
         {
             Value = value;
+        }
+
+        public static CustomerName From(string value)
+        {
+            return new CustomerName(value);
         }
     }
 }

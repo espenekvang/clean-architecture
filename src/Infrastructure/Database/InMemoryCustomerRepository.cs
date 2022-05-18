@@ -12,14 +12,9 @@ namespace Infrastructure.Database
             _customers = new Dictionary<CustomerId, Customer>();
         }
 
-        public Customer FindBy(CustomerId customerId)
+        public Customer? FindBy(CustomerId customerId)
         {
-            if (_customers.TryGetValue(customerId, out var customer))
-            {
-                return customer;
-            }
-
-            throw new ArgumentException($"Customer with id {customerId} not found.");
+            return _customers.TryGetValue(customerId, out var customer) ? customer : default(Customer);
         }
 
         public void Save(Customer customer)

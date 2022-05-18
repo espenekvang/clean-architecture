@@ -4,9 +4,14 @@
     {
         public string Name { get; init; }
 
-        public Country(string name)
+        private Country(string name)
         {
             Name = name;
+        }
+
+        public static Country From(string value)
+        {
+            return new Country(value);
         }
     }
 }

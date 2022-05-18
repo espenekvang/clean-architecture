@@ -1,17 +1,16 @@
-﻿using System.Runtime.InteropServices;
-using Domain.ValueTypes;
+﻿using Domain.ValueTypes;
 
 namespace Domain.Customer
 {
-    internal class CustomerFactory
+    public class CustomerFactory
     {
         public static Customer Create(string name, string customerId, string country)
         {
             return new Customer(
                 new CustomerEntity(
-                    new CustomerName(name),
-                    new CustomerId(customerId),
-                    new Country(country)
+                    CustomerName.From(name),
+                    CustomerId.From(customerId),
+                    Country.From(country)
                 )
             );
         }

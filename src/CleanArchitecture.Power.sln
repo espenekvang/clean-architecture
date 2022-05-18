@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.UnitTests", "Domain.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4E302E32-DC9E-4496-A1EA-5DA9AE84EE57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{BB7A83AE-6BC7-4D5A-A51C-DD3C18B5C8EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{BB7A83AE-6BC7-4D5A-A51C-DD3C18B5C8EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Usecase", "Usecase\Usecase.csproj", "{B3EEA25A-F5B0-4B70-9C78-C5138802AE1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCase", "Usecase\UseCase.csproj", "{B3EEA25A-F5B0-4B70-9C78-C5138802AE1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
