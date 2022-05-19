@@ -32,10 +32,18 @@ namespace Web.Controllers
         [HttpPost]
         public IActionResult Create(CreateCustomerRequest request)
         {
-            var customer = _createCustomerUseCase.Create(request.Name, request.CustomerId, request.Country);
-            _logger.LogInformation("Customer with id {0} created", customer.Id);
-
-            return CreatedAtRoute(Route.GetCustomer, new { customerId = customer.Id.Value }, customer);
+            try
+            {
+                var customer = _createCustomerUseCase.Create(request.Name, request.CustomerId, request.Country);
+                _logger.LogInformation("Customer with id {0} created", customer.Id);
+             
+                return CreatedAtRoute(Route.GetCustomer, new { customerId = customer.Id.Value }, customer);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Unable to create customer");
+                return BadRequest(e.Message);
+            }
         }
     }
 }

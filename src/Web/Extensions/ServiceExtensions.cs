@@ -9,7 +9,7 @@ namespace Web.Extensions
         public static void RegisterCustomerServices(this IServiceCollection collection)
         {
             collection.AddTransient<CreateCustomerUseCase>();
-            collection.AddTransient<ICustomerRepository, InMemoryCustomerRepository>();
+            collection.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>();
         }
     }
 }
