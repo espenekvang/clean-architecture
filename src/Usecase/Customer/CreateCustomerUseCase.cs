@@ -12,18 +12,18 @@ namespace UseCase.Customer
             _customerRepository = customerRepository;
         }
 
-        public Domain.Customer.Customer Create(string name, string customerId, string country)
+        public (bool success, CustomerId customerId, string message) Create(string name, string customerId, string country)
         {
             if (_customerRepository.FindBy(CustomerId.From(customerId)) != null)
             {
-                throw new ArgumentException($"Customer with id ''{customerId}' already exists");
+                return (false, CustomerId.From(string.Empty), $"Customer with id '{customerId}' already exists");
             }
 
             var customer = CustomerFactory.Create(name, customerId, country);
 
             _customerRepository.Save(customer);
 
-            return customer;
+            return (true, customer.Id, "Customer created");
         }
     }
 }
