@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9abf22de-708d-473f-aff4-bbfc4a5dc4ec",
+		"_postman_id": "4543dc17-42b0-43c9-a61c-98c81955fa5b",
 		"name": "CleanArchitecture.Power",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "1654120"
@@ -116,14 +116,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5233/meteringpoints/{meteringpointId}/consumptions?from={dateTime}&to={dateTime}",
+					"raw": "http://localhost:5233/customers/{customerId}meteringpoints/{meteringpointId}/consumptions?from={dateTime}&to={dateTime}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5233",
 					"path": [
-						"meteringpoints",
+						"customers",
+						"{customerId}meteringpoints",
 						"{meteringpointId}",
 						"consumptions"
 					],
