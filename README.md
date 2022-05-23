@@ -1,6 +1,23 @@
 # clean-architecture
 
-Repo for clean architecture workshop
+Repo for clean architecture workshop.
+The implementation is based on the Clean Architecture from https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+
+Th structure in this repo is as follows:
+
+1. **Domain**  
+   Entities, valuetypes, aggregates, factories, repositories
+2. **Usecase**  
+   Use cases with application logic
+3. **Infrastructure**  
+   Database, external services++
+4. **Web**  
+   Entrypoint med api controllere, DI-setup etc
+
+**Domain** is the innermost part of the architecture, hence it cannot refer to any other layer.  
+**Usecase** can only refer to **Domain**.  
+**Infrastructure** can refer to **Usecase** and **Domain**.  
+**Web** is outer most layer and can reference all other layers.
 
 ## Prerequisite
 
