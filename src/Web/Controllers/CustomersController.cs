@@ -6,17 +6,17 @@ namespace Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CustomerController : ControllerBase
+    public class CustomersController : ControllerBase
     {
         internal static class Route
         {
             public const string GetCustomer = "GetCustomer";
         }
 
-        private readonly ILogger<CustomerController> _logger;
+        private readonly ILogger<CustomersController> _logger;
         private readonly CreateCustomerUseCase _createCustomerUseCase;
 
-        public CustomerController(ILogger<CustomerController> logger, CreateCustomerUseCase createCustomerUseCase)
+        public CustomersController(ILogger<CustomersController> logger, CreateCustomerUseCase createCustomerUseCase)
         {
             _logger = logger;
             _createCustomerUseCase = createCustomerUseCase;
