@@ -3,7 +3,7 @@
 Repo for clean architecture workshop.
 The implementation is based on the Clean Architecture from https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
-Th structure in this repo is as follows:
+Th structure within the `src` folder in this repo is as follows:
 
 1. **Domain**  
    Entities, valuetypes, aggregates, factories, repositories
