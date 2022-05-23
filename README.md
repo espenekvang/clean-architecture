@@ -48,3 +48,7 @@ info: Microsoft.Hosting.Lifetime[0]
 ```
 
 - By navigating to `https://localhost:7233/swagger/index.html` you should be able to se the openapi specification for the api
+
+## Postman collection
+
+The `clean-architecture-postman-collection.json` is a postman collection with resources to represent the different use cases in the workshop.
