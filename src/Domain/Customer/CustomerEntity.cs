@@ -5,13 +5,13 @@ namespace Domain.Customer
     public class CustomerEntity    
     {
         public CustomerId CustomerId { get; }
-        public CustomerName CustomerName { get; }
+        public CustomerName Name { get; }
         public Country Country { get; }
 
-        public CustomerEntity(CustomerName customerName, CustomerId customerId, Country country)
+        public CustomerEntity(CustomerName name, CustomerId customerId, Country country)
         {
             CustomerId = customerId;
-            CustomerName = customerName;
+            Name = name;
             Country = country;
         }
     }
