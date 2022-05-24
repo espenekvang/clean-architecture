@@ -15,6 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCase", "Usecase\UseCase.csproj", "{B3EEA25A-F5B0-4B70-9C78-C5138802AE1F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{A29B4B81-B75A-4D2E-844C-FE501AEA7C69}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\metervalues.json = Resources\metervalues.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
