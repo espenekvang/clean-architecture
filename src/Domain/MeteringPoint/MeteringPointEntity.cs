@@ -5,11 +5,11 @@ namespace Domain.MeteringPoint
     public class MeteringPointEntity
     {
         public MeteringPointId MeteringPointId { get; }
-        public CustomerName Name { get; }
+        public MeteringPointName Name { get; }
         public Address Address { get; }
         public PowerZone PowerZone { get; }
 
-        public MeteringPointEntity(MeteringPointId meteringPointId, CustomerName name, Address address, PowerZone powerZone)
+        public MeteringPointEntity(MeteringPointId meteringPointId, MeteringPointName name, Address address, PowerZone powerZone)
         {
             MeteringPointId = meteringPointId;
             Name = name;
