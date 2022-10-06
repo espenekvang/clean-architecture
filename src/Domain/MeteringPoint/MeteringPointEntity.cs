@@ -2,7 +2,7 @@
 
 namespace Domain.MeteringPoint
 {
-    public class MeteringPointEntity
+    public record MeteringPointEntity
     {
         public MeteringPointId MeteringPointId { get; }
         public MeteringPointName Name { get; }

@@ -1,6 +1,6 @@
 ﻿namespace Domain.ValueTypes
 {
-    public readonly struct CustomerId
+    public record CustomerId
     {
         public string Value { get; init; }
 

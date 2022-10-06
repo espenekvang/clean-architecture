@@ -2,7 +2,7 @@
 
 namespace Domain.Consumption
 {
-    internal class Consumption
+    internal record Consumption
     {
         public MeteringPointId MeteringPointId { get; }
         public Period Period { get; }

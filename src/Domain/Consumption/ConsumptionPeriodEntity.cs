@@ -2,7 +2,7 @@
 
 namespace Domain.Consumption
 {
-    internal class ConsumptionPeriodEntity
+    internal record ConsumptionPeriodEntity
     {
         public Period Period { get; }
         public double Value { get; }

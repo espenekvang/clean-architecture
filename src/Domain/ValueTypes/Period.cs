@@ -1,6 +1,6 @@
 ﻿namespace Domain.ValueTypes
 {
-    internal readonly struct Period
+    internal record Period
     {
         public DateTime From { get; init; }
         public DateTime To { get; init; }

@@ -1,6 +1,6 @@
 ﻿namespace Domain.ValueTypes
 {
-    public readonly struct Address
+    public record Address
     {
         public string StreetName { get; init; }
         public int ZipCode { get; init; }

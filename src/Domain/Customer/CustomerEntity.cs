@@ -2,7 +2,7 @@
 
 namespace Domain.Customer
 {
-    public class CustomerEntity    
+    public record CustomerEntity    
     {
         public CustomerId CustomerId { get; }
         public CustomerName Name { get; }

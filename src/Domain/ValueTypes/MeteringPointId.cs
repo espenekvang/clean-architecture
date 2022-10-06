@@ -1,6 +1,6 @@
 ﻿namespace Domain.ValueTypes
 {
-    public readonly struct MeteringPointId
+    public record MeteringPointId
     {
         public readonly ulong Value;
         private const double RequiredNumberOfDigits = 16;

@@ -1,6 +1,6 @@
 ﻿namespace Domain.ValueTypes
 {
-    public readonly struct Country
+    public record Country
     {
         public string Name { get; init; }
 

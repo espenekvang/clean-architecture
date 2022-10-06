@@ -1,6 +1,6 @@
 ﻿namespace Domain.ValueTypes
 {
-    public readonly struct PowerZone
+    public record PowerZone
     {
         public string Code { get; init; }
         private static readonly List<string> ValidCodes = new() { "NO1", "NO2", "NO3", "NO4", "NO5" };

@@ -1,6 +1,6 @@
 ﻿namespace Domain.ValueTypes
 {
-    public class MeteringPointName
+    public record MeteringPointName
     {
         public string Value { get; init; }
 
