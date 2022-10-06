@@ -1,6 +1,6 @@
-﻿using Domain.Customer;
+﻿using Application.Customer;
+using Domain.Customer;
 using Infrastructure.Database;
-using UseCase.Customer;
 
 namespace Web.Extensions
 {

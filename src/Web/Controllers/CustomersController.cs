@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using UseCase.Customer;
+﻿using Application.Customer;
+using Microsoft.AspNetCore.Mvc;
 using Web.Requests;
 
 namespace Web.Controllers

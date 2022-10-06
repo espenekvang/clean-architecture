@@ -1,7 +1,7 @@
 ﻿using Domain.Customer;
 using Domain.ValueTypes;
 
-namespace UseCase.Customer
+namespace Application.Customer
 {
     public class CreateCustomerUseCase
     {
