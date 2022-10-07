@@ -7,10 +7,10 @@ Th structure within the `src` folder in this repo is as follows:
 
 1. **Domain**  
    Entities, valuetypes, aggregates, factories, repositories
-2. **Usecase**  
-   Use cases with application logic
+2. **Application**  
+   Application logic and command handlers
 3. **Infrastructure**  
-   Database, external services++
+   Database, external services, query handlers++
 4. **Web**  
    Entrypoint med api controllere, DI-setup etc
 
