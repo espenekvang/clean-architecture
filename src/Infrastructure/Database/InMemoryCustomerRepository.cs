@@ -1,4 +1,4 @@
-﻿using Domain.Customer;
+﻿using Domain.Customers;
 using Domain.ValueTypes;
 
 namespace Infrastructure.Database

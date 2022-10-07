@@ -2,7 +2,7 @@
 using Domain.MeteringPoint;
 using Domain.ValueTypes;
 
-namespace Domain.Customer
+namespace Domain.Customers
 {
     public class Customer
     {

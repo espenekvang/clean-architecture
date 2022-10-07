@@ -1,3 +1,5 @@
+using Domain.Customers;
+using Infrastructure.Database;
 using Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.RegisterCustomerServices();
+builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>();
+
+builder.Services.AddAllCommandHandlers();
+builder.Services.AddAllQueryHandlers();
 
 var app = builder.Build();
 
