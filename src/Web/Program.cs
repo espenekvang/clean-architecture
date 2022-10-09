@@ -1,6 +1,9 @@
+using System.Reflection;
+using Application.Customers;
 using Domain.Customers;
+using Infrastructure.Customers;
 using Infrastructure.Database;
-using Web.Extensions;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +16,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>();
 
-builder.Services.AddAllCommandHandlers();
-builder.Services.AddAllQueryHandlers();
+builder.Services.AddMediatR(typeof(GetCustomerQuery).Assembly);
+builder.Services.AddMediatR(typeof(CreateCustomerCommand).Assembly);
 
 var app = builder.Build();
 

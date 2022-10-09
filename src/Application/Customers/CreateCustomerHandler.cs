@@ -1,17 +1,18 @@
 ﻿using Domain.Customers;
 using Domain.ValueTypes;
+using MediatR;
 
 namespace Application.Customers
 {
-    public record CreateCustomer(string Name, CustomerId CustomerId, string Country)
+    public record CreateCustomerCommand(string Name, CustomerId CustomerId, string Country) : IRequest
     {
-        public static CreateCustomer With(string name, string customerId, string country)
+        public static CreateCustomerCommand With(string name, string customerId, string country)
         {
-            return new CreateCustomer(name, CustomerId.From(customerId), country);
+            return new CreateCustomerCommand(name, CustomerId.From(customerId), country);
         }
     }
 
-    internal class CreateCustomerHandler : ICommandHandler<CreateCustomer>
+    internal class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand>
     {
         private readonly ICustomerRepository _customerRepository;
 
@@ -20,9 +21,9 @@ namespace Application.Customers
             _customerRepository = customerRepository;
         }
 
-        public ValueTask Handle(CreateCustomer command, CancellationToken cancellationToken)
+        Task<Unit> IRequestHandler<CreateCustomerCommand, Unit>.Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
-            var (name, customerId, country) = command;
+            var (name, customerId, country) = request;
 
             if (_customerRepository.FindBy(customerId) != null)
             {
@@ -33,8 +34,8 @@ namespace Application.Customers
             var customer = CustomerFactory.Create(name, customerId, country);
 
             _customerRepository.Save(customer);
-            
-            return ValueTask.CompletedTask;
+
+            return Task.FromResult(new Unit());
         }
     }
 }

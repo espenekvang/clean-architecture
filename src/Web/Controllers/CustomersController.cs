@@ -1,7 +1,6 @@
-﻿using Application;
-using Application.Customers;
-using Domain.Customers;
+﻿using Application.Customers;
 using Infrastructure.Customers;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Web.Requests;
 
@@ -17,21 +16,19 @@ namespace Web.Controllers
         }
 
         private readonly ILogger<CustomersController> _logger;
-        private readonly ICommandHandler<CreateCustomer> _createCustomerCommand;
-        private readonly IQueryHandler<GetCustomer, Customer?> _getCustomerQuery;
+        private readonly IMediator _mediator;
 
-        public CustomersController(ILogger<CustomersController> logger, ICommandHandler<CreateCustomer> createCustomerCommand, IQueryHandler<GetCustomer, Customer?> getCustomerQuery)
+        public CustomersController(ILogger<CustomersController> logger, IMediator mediator)
         {
             _logger = logger;
-            _createCustomerCommand = createCustomerCommand;
-            _getCustomerQuery = getCustomerQuery;
+            _mediator = mediator;
         }
 
         [HttpGet]
         [Route("{customerId}", Name = Route.GetCustomer)]
         public async Task<IActionResult> Get(string customerId, CancellationToken ct)
         {
-            var customer = await _getCustomerQuery.Run(GetCustomer.With(customerId), ct);
+            var customer = await _mediator.Send(GetCustomerQuery.With(customerId), ct);
 
             if (customer != null)
             {
@@ -46,7 +43,7 @@ namespace Web.Controllers
         {
             try
             {
-                await _createCustomerCommand.Handle(CreateCustomer.With(request.Name, request.CustomerId, request.Country), ct);
+                await _mediator.Send(CreateCustomerCommand.With(request.Name, request.CustomerId, request.Country), ct);
                 return CreatedAtRoute(Route.GetCustomer, new { customerId = request.CustomerId }, request.CustomerId);
             }
             catch (TaskCanceledException cte)

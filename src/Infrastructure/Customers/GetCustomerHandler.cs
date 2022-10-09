@@ -1,18 +1,18 @@
-﻿using Application;
-using Domain.Customers;
+﻿using Domain.Customers;
 using Domain.ValueTypes;
+using MediatR;
 
 namespace Infrastructure.Customers
 {
-    public record GetCustomer(CustomerId CustomerId)
+    public record GetCustomerQuery(CustomerId CustomerId) : IRequest<Customer?>
     {
-        public static GetCustomer With(string customerId)
+        public static GetCustomerQuery With(string customerId)
         {
-            return new GetCustomer(CustomerId.From(customerId));
+            return new GetCustomerQuery(CustomerId.From(customerId));
         }
     }
 
-    internal class GetCustomerHandler : IQueryHandler<GetCustomer, Customer?>
+    internal class GetCustomerHandler : IRequestHandler<GetCustomerQuery, Customer?>
     {
         private readonly ICustomerRepository _customerRepository;
 
@@ -21,11 +21,11 @@ namespace Infrastructure.Customers
             _customerRepository = customerRepository;
         }
 
-        public ValueTask<Customer?> Run(GetCustomer query, CancellationToken cancellationToken)
+        public Task<Customer?> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
         {
-            var customer = _customerRepository.FindBy(query.CustomerId);
-            
-            return ValueTask.FromResult(customer);
+            var customer = _customerRepository.FindBy(request.CustomerId);
+
+            return Task.FromResult(customer);
         }
     }
 }
