@@ -1,5 +1,6 @@
 using Domain.Customers;
 using Infrastructure.Database;
+using Infrastructure.Extensions;
 using Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>();
+builder.Services.AddInfrastructure();
 
 builder.Services.AddAllCommandHandlers();
 builder.Services.AddAllQueryHandlers();

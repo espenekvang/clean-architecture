@@ -1,17 +1,9 @@
-﻿using Domain.Customers;
-using Domain.ValueTypes;
+﻿using Application.Customers.Commands;
+using Domain.Customers;
 
-namespace Application.Customers
+namespace Application.Customers.Handlers
 {
-    public record CreateCustomer(string Name, CustomerId CustomerId, string Country)
-    {
-        public static CreateCustomer With(string name, string customerId, string country)
-        {
-            return new CreateCustomer(name, CustomerId.From(customerId), country);
-        }
-    }
-
-    internal class CreateCustomerHandler : ICommandHandler<CreateCustomer>
+    internal class CreateCustomerHandler : ICommandHandler<CreateCustomerCommand>
     {
         private readonly ICustomerRepository _customerRepository;
 
@@ -20,7 +12,7 @@ namespace Application.Customers
             _customerRepository = customerRepository;
         }
 
-        public ValueTask Handle(CreateCustomer command, CancellationToken cancellationToken)
+        public ValueTask Handle(CreateCustomerCommand command, CancellationToken cancellationToken)
         {
             var (name, customerId, country) = command;
 

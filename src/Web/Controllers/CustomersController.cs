@@ -1,7 +1,8 @@
 ﻿using Application;
 using Application.Customers;
+using Application.Customers.Commands;
+using Application.Customers.Queries;
 using Domain.Customers;
-using Infrastructure.Customers;
 using Microsoft.AspNetCore.Mvc;
 using Web.Requests;
 
@@ -17,21 +18,21 @@ namespace Web.Controllers
         }
 
         private readonly ILogger<CustomersController> _logger;
-        private readonly ICommandHandler<CreateCustomer> _createCustomerCommand;
-        private readonly IQueryHandler<GetCustomer, Customer?> _getCustomerQuery;
+        private readonly ICommandHandler<CreateCustomerCommand> _createCustomerHandler;
+        private readonly IQueryHandler<GetCustomerQuery, Customer?> _getCustomerHandler;
 
-        public CustomersController(ILogger<CustomersController> logger, ICommandHandler<CreateCustomer> createCustomerCommand, IQueryHandler<GetCustomer, Customer?> getCustomerQuery)
+        public CustomersController(ILogger<CustomersController> logger, ICommandHandler<CreateCustomerCommand> createCustomerHandler, IQueryHandler<GetCustomerQuery, Customer?> getCustomerHandler)
         {
             _logger = logger;
-            _createCustomerCommand = createCustomerCommand;
-            _getCustomerQuery = getCustomerQuery;
+            _createCustomerHandler = createCustomerHandler;
+            _getCustomerHandler = getCustomerHandler;
         }
 
         [HttpGet]
         [Route("{customerId}", Name = Route.GetCustomer)]
         public async Task<IActionResult> Get(string customerId, CancellationToken ct)
         {
-            var customer = await _getCustomerQuery.Run(GetCustomer.With(customerId), ct);
+            var customer = await _getCustomerHandler.Handle(GetCustomerQuery.With(customerId), ct);
 
             if (customer != null)
             {
@@ -46,7 +47,7 @@ namespace Web.Controllers
         {
             try
             {
-                await _createCustomerCommand.Handle(CreateCustomer.With(request.Name, request.CustomerId, request.Country), ct);
+                await _createCustomerHandler.Handle(CreateCustomerCommand.With(request.Name, request.CustomerId, request.Country), ct);
                 return CreatedAtRoute(Route.GetCustomer, new { customerId = request.CustomerId }, request.CustomerId);
             }
             catch (TaskCanceledException cte)

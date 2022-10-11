@@ -3,7 +3,7 @@ using Domain.ValueTypes;
 
 namespace Infrastructure.Database
 {
-    public class InMemoryCustomerRepository : ICustomerRepository
+    internal class InMemoryCustomerRepository : ICustomerRepository
     {
         private readonly IDictionary<CustomerId, Customer> _customers;
 
