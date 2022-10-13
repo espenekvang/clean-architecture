@@ -4,8 +4,7 @@ namespace Domain.Customers
 {
     public interface ICustomerRepository
     {
-        public Customer? FindBy(CustomerId customerId);
-        public void Save(Customer customer);
-        public void Update(Customer customer);
+        public Task<Customer?> FindByAsync(CustomerId customerId);
+        public Task SaveAsync(Customer customer);
     }
 }

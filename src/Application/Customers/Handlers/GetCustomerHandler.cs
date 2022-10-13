@@ -12,11 +12,11 @@ namespace Application.Customers.Handlers
             _customerRepository = customerRepository;
         }
 
-        public ValueTask<Customer?> Handle(GetCustomerQuery query, CancellationToken cancellationToken)
+        public async ValueTask<Customer?> Handle(GetCustomerQuery query, CancellationToken cancellationToken)
         {
-            var customer = _customerRepository.FindBy(query.CustomerId);
-            
-            return ValueTask.FromResult(customer);
+            var customer = await _customerRepository.FindByAsync(query.CustomerId);
+
+            return customer;
         }
     }
 }

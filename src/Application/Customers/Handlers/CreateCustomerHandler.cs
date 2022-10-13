@@ -12,11 +12,11 @@ namespace Application.Customers.Handlers
             _customerRepository = customerRepository;
         }
 
-        public ValueTask Handle(CreateCustomerCommand command, CancellationToken cancellationToken)
+        public async ValueTask Handle(CreateCustomerCommand command, CancellationToken cancellationToken)
         {
             var (name, customerId, country) = command;
 
-            if (_customerRepository.FindBy(customerId) != null)
+            if (await _customerRepository.FindByAsync(customerId) != null)
             {
                 throw new InvalidOperationException(
                     $"Customer with id: {customerId} already exists");
@@ -24,9 +24,7 @@ namespace Application.Customers.Handlers
 
             var customer = CustomerFactory.Create(name, customerId, country);
 
-            _customerRepository.Save(customer);
-            
-            return ValueTask.CompletedTask;
+            await _customerRepository.SaveAsync(customer);
         }
     }
 }

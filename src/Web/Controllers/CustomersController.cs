@@ -39,7 +39,7 @@ namespace Web.Controllers
                 return Ok(new { customerId = customer.Id });
             }
 
-            return NotFound(customerId);
+            return NotFound();
         }
 
         [HttpPost]

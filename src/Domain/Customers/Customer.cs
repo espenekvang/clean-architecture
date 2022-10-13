@@ -10,6 +10,8 @@ namespace Domain.Customers
         private readonly IList<MeteringPointEntity> _meteringPoints;
 
         public CustomerId Id => _customerEntity.CustomerId;
+        public CustomerName Name => _customerEntity.Name;
+        public Country Country => _customerEntity.Country;
 
         public Customer(CustomerEntity customerEntity)
         {
