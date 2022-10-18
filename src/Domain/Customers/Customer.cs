@@ -7,16 +7,16 @@ namespace Domain.Customers
     public class Customer
     {
         private readonly CustomerEntity _customerEntity;
-        private readonly IList<MeteringPointEntity> _meteringPoints;
 
         public CustomerId Id => _customerEntity.CustomerId;
         public CustomerName Name => _customerEntity.Name;
         public Country Country => _customerEntity.Country;
+        public List<MeteringPointEntity> MeteringPoints { get; init; }
 
         public Customer(CustomerEntity customerEntity)
         {
             _customerEntity = customerEntity;
-            _meteringPoints = new List<MeteringPointEntity>();
+            MeteringPoints = new List<MeteringPointEntity>();
         }
 
         public Customer(string name, string customerId, string country) : this(new CustomerEntity(name, customerId, country))
@@ -26,12 +26,12 @@ namespace Domain.Customers
 
         public void AddMeteringPoint(MeteringPointEntity meteringPoint)
         {
-            _meteringPoints.Add(meteringPoint);
+            MeteringPoints.Add(meteringPoint);
         }
 
         public void RemoveMeteringPoint(MeteringPointEntity meteringPoint)
         {
-            _meteringPoints.Remove(meteringPoint);
+            MeteringPoints.Remove(meteringPoint);
         }
     }
 }
