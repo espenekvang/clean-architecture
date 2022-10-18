@@ -16,7 +16,7 @@ namespace Application.Customers.Handlers
         {
             var (name, customerId, country) = command;
 
-            if (await _customerRepository.FindByAsync(customerId) != null)
+            if (await _customerRepository.FindByIdAsync(customerId) != null)
             {
                 throw new InvalidOperationException(
                     $"Customer with id: {customerId} already exists");

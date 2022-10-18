@@ -7,10 +7,19 @@ namespace Infrastructure.Database.Migrations
     {
         public override void Up()
         {
-            Create.Table("Customer")
-                .WithColumn("Id").AsString().PrimaryKey()
-                .WithColumn("Name").AsString()
-                .WithColumn("Country").AsString();
+            Create.Table("CUSTOMER")
+                .WithColumn("CUSTOMER_ID").AsString().PrimaryKey()
+                .WithColumn("NAME").AsString().NotNullable()
+                .WithColumn("COUNTRY").AsString().NotNullable();
+
+            Create.Table("METERING_POINT")
+                .WithColumn("METERING_POINT_ID").AsString().PrimaryKey()
+                .WithColumn("NAME").AsString().NotNullable()
+                .WithColumn("POWER_ZONE").AsString().NotNullable()
+                .WithColumn("STREET").AsString().NotNullable()
+                .WithColumn("ZIP").AsString().NotNullable()
+                .WithColumn("CUSTOMER_ID").AsString()
+                .ForeignKey("METERING_POINT_CUSTOMER_ID", "CUSTOMER", "CUSTOMER_ID");
         }
 
         public override void Down()

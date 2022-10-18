@@ -19,6 +19,11 @@ namespace Domain.Customers
             _meteringPoints = new List<MeteringPointEntity>();
         }
 
+        public Customer(string name, string customerId, string country) : this(new CustomerEntity(name, customerId, country))
+        {
+
+        }
+
         public void AddMeteringPoint(MeteringPointEntity meteringPoint)
         {
             _meteringPoints.Add(meteringPoint);

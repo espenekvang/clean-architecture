@@ -2,17 +2,12 @@
 
 namespace Domain.Customers
 {
-    public record CustomerEntity    
+    public record CustomerEntity(CustomerName Name, CustomerId CustomerId, Country Country)
     {
-        public CustomerId CustomerId { get; }
-        public CustomerName Name { get; }
-        public Country Country { get; }
-
-        public CustomerEntity(CustomerName name, CustomerId customerId, Country country)
+        public CustomerEntity(string name, string customerId, string country) 
+            : this(new CustomerName(name), new CustomerId(customerId), new Country(country))
         {
-            CustomerId = customerId;
-            Name = name;
-            Country = country;
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Domain.Customers;
+using Domain.MeteringPoint;
 using Domain.ValueTypes;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
@@ -15,23 +16,22 @@ namespace Infrastructure.Database
             _configuration = configuration;
         }
 
-        public async Task<Customer?> FindByAsync(CustomerId customerId)
+        public async Task<Customer?> FindByIdAsync(CustomerId customerId)
         {
             await using var connection = new SqliteConnection(_configuration.GetConnectionString("PowerDb"));
-            var customers =
-                (await connection.QueryAsync<Entities.Customer>("SELECT * FROM CUSTOMER WHERE Id=@Id",
-                    new { Id = customerId.Value }))
-                .ToList();
-
-            if (!customers.Any()) return default(Customer);
-            
-            var customerDbEntity = customers[0];
-            var customerEntity = new CustomerEntity(
-                CustomerName.From(customerDbEntity.Name), 
-                CustomerId.From(customerDbEntity.Id),
-                Country.From(customerDbEntity.Country));
-
-            return new Customer(customerEntity);
+            var sql =
+                "SELECT C.NAME AS NAME, C.CUSTOMER_ID AS CUSTOMERID, C.COUNTRY AS COUNTRY, M.METERING_POINT_ID AS METERINGPOINTID, M.NAME AS NAME, M.STREET AS STREET, M.ZIP AS ZIPCODE, M.POWER_ZONE AS POWERZONE " +
+                "FROM CUSTOMER C LEFT OUTER JOIN METERING_POINT M ON C.CUSTOMER_ID = M.CUSTOMER_ID " +
+                "WHERE C.CUSTOMER_ID=@Id";
+            var customers = await connection.QueryAsync<Customer, MeteringPointEntity, Customer>(sql,
+                (customer, meteringPointEntity) =>
+                {
+                    customer.AddMeteringPoint(meteringPointEntity);
+                    return customer;
+                },
+                splitOn: "METERINGPOINTID",
+                param: new { Id = customerId.Value });
+            return customers.FirstOrDefault();
 
         }
 
@@ -39,7 +39,9 @@ namespace Infrastructure.Database
         {
             await using var connection = new SqliteConnection(_configuration.GetConnectionString("PowerDb"));
 
-            await connection.ExecuteAsync("INSERT INTO Customer(Id, Name,Country) VALUES (@Id, @Name, @Country)",
+            await connection.ExecuteAsync(
+                "INSERT INTO Customer(CUSTOMER_ID, NAME,COUNTRY) " +
+                "VALUES (@Id, @Name, @Country)",
                 new
                 {
                     Id = customer.Id.Value,

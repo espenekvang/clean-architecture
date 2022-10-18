@@ -14,7 +14,7 @@ namespace Application.Customers.Handlers
 
         public async ValueTask<Customer?> Handle(GetCustomerQuery query, CancellationToken cancellationToken)
         {
-            var customer = await _customerRepository.FindByAsync(query.CustomerId);
+            var customer = await _customerRepository.FindByIdAsync(query.CustomerId);
 
             return customer;
         }
