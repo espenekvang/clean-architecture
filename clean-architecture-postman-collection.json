@@ -22,12 +22,12 @@
 					"raw": "{\r\n  \"name\": \"Ola Normann\",\r\n  \"customerId\": \"1\",\r\n  \"country\": \"Norge\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:5233/customers/",
-					"protocol": "http",
+					"raw": "https://localhost:7233/customers/",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5233",
+					"port": "7233",
 					"path": [
 						"customers",
 						""
@@ -37,28 +37,47 @@
 			"response": []
 		},
 		{
-			"name": "2. Get meteringpoints for customer",
+			"name": "2. Get Customer",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5233/customers/{customerId}/meteringpoints",
-					"protocol": "http",
+					"raw": "https://localhost:7233/customers/{customerId}",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5233",
+					"port": "7233",
 					"path": [
 						"customers",
-						"{customerId}",
-						"meteringpoints"
+						"{customerId}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "3. Add meteringpoint",
+			"name": "3. Get Customers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7233/customers/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7233",
+					"path": [
+						"customers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Add meteringpoint",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -89,7 +108,7 @@
 			"response": []
 		},
 		{
-			"name": "4. Delete meteringpoint",
+			"name": "5. Delete meteringpoint",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -111,7 +130,28 @@
 			"response": []
 		},
 		{
-			"name": "5. Get consumptions for a meteringpoint",
+			"name": "6. Get meteringpoints for customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5233/customers/{customerId}/meteringpoints",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5233",
+					"path": [
+						"customers",
+						"{customerId}",
+						"meteringpoints"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Get consumptions for a meteringpoint",
 			"request": {
 				"method": "GET",
 				"header": [],
