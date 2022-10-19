@@ -14,7 +14,6 @@ namespace Web.Controllers
         internal static class Route
         {
             public const string GetCustomer = "GetCustomer";
-            public const string GetCustomers = "GetCustomers";
         }
 
         private readonly ILogger<CustomersController> _logger;
