@@ -1,5 +1,4 @@
 ﻿using Application;
-using Application.Customers;
 using Application.Customers.Commands;
 using Application.Customers.Queries;
 using Domain.Customers;
@@ -15,17 +14,24 @@ namespace Web.Controllers
         internal static class Route
         {
             public const string GetCustomer = "GetCustomer";
+            public const string GetCustomers = "GetCustomers";
         }
 
         private readonly ILogger<CustomersController> _logger;
         private readonly ICommandHandler<CreateCustomerCommand> _createCustomerHandler;
         private readonly IQueryHandler<GetCustomerQuery, Customer?> _getCustomerHandler;
+        private readonly IQueryHandler<GetCustomersQuery, IEnumerable<Customer>> _getCustomersHandler;
 
-        public CustomersController(ILogger<CustomersController> logger, ICommandHandler<CreateCustomerCommand> createCustomerHandler, IQueryHandler<GetCustomerQuery, Customer?> getCustomerHandler)
+        public CustomersController(
+            ILogger<CustomersController> logger, 
+            ICommandHandler<CreateCustomerCommand> createCustomerHandler, 
+            IQueryHandler<GetCustomerQuery, Customer?> getCustomerHandler,
+            IQueryHandler<GetCustomersQuery, IEnumerable<Customer>> _getCustomersHandler)
         {
             _logger = logger;
             _createCustomerHandler = createCustomerHandler;
             _getCustomerHandler = getCustomerHandler;
+            this._getCustomersHandler = _getCustomersHandler;
         }
 
         [HttpGet]
@@ -36,10 +42,29 @@ namespace Web.Controllers
 
             if (customer != null)
             {
-                return Ok(new { customerId = customer.Id });
+                return Ok(new
+                {
+                    Id = customer.Id.Value,
+                    Name = customer.Name.Value,
+                    Country = customer.Country.Name
+                });
             }
 
             return NotFound();
+        }
+
+        [HttpGet]
+        [Route("", Name = Route.GetCustomers)]
+        public async Task<IActionResult> Get(CancellationToken ct)
+        {
+            var customers = await _getCustomersHandler.Handle(new GetCustomersQuery(), ct);
+
+            return Ok(customers.Select(customer => new
+            {
+                Id = customer.Id.Value,
+                Name = customer.Name.Value,
+                Country = customer.Country.Name
+            }));
         }
 
         [HttpPost]

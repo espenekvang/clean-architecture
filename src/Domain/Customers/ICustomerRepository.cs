@@ -7,5 +7,6 @@ namespace Domain.Customers
         public Task<Customer?> FindByIdAsync(CustomerId customerId);
         public Task SaveAsync(Customer customer);
         Task UpdateAsync(Customer customer);
+        Task<IEnumerable<Customer>> FindAllAsync();
     }
 }

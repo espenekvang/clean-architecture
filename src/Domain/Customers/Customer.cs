@@ -1,6 +1,4 @@
-﻿
-using Domain.MeteringPoint;
-using Domain.ValueTypes;
+﻿using Domain.ValueTypes;
 
 namespace Domain.Customers
 {
@@ -11,27 +9,16 @@ namespace Domain.Customers
         public CustomerId Id => _customerEntity.CustomerId;
         public CustomerName Name => _customerEntity.Name;
         public Country Country => _customerEntity.Country;
-        public List<MeteringPointEntity> MeteringPoints { get; init; }
 
         public Customer(CustomerEntity customerEntity)
         {
-            _customerEntity = customerEntity;
-            MeteringPoints = new List<MeteringPointEntity>();
+            _customerEntity = customerEntity;            
         }
 
-        public Customer(string name, string customerId, string country) : this(new CustomerEntity(name, customerId, country))
+        public Customer(string name, string customerId, string country) :
+            this(new CustomerEntity(name, customerId, country))
         {
 
-        }
-
-        public void AddMeteringPoint(MeteringPointEntity meteringPoint)
-        {
-            MeteringPoints.Add(meteringPoint);
-        }
-
-        public void RemoveMeteringPoint(MeteringPointEntity meteringPoint)
-        {
-            MeteringPoints.Remove(meteringPoint);
         }
     }
 }
