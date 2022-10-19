@@ -1,39 +1,39 @@
 # clean-architecture
 
 Repo for clean architecture workshop.
-The implementation is based on the Clean Architecture from https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+Implementasjonen er inspirert av Clean Architecture fra https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
-Th structure within the `src` folder in this repo is as follows:
+Strukturen i repoet i "src"-mappen er som følger:
 
 1. **Domain**  
-   Entities, valuetypes, aggregates, factories, repositories
+   Entiteter, valuetypes, aggregater
 2. **Application**  
-   Application logic and command handlers
+   Applikasjonslogikk, query og command handlere
 3. **Infrastructure**  
-   Database, external services, query handlers++
+   Database, eksterne tjenester, repsitorier
 4. **Web**  
-   Entrypoint med api controllere, DI-setup etc
+   Controllere, dependency injection setup ++
 
-**Domain** is the innermost part of the architecture, hence it cannot refer to any other layer.  
-**Usecase** can only refer to **Domain**.  
-**Infrastructure** can refer to **Usecase** and **Domain**.  
-**Web** is outer most layer and can reference all other layers.
+**Domain** er den innerste delen av arkitekturen og skal derfor ikke referere til noe annet lag.
+**Application** kan bare referere til **Domain**.  
+**Infrastructure** kan referere til **Application** og **Domain**.  
+**Web** er ytterst og kan dermed kjenne til alle lag.
 
-## Prerequisite
+## Forutsetninger
 
 - .NET 6.0 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
-- Editor of choice (Visual studio code, Visual Studio, Rider)
+- Editor (Visual studio code, Visual Studio, Rider)
 
-## Running the application
+## Kjøre applikasjonen
 
-- Open terminal of choice where .NET CLI is available
-- Navigate to `src\Web` and type `dotnet run` followed by enter:
+- Åpne en terminal der .NET CLI er tilgjengelig
+- Navigèr til `src\Web` og skriv `dotnet run` etterfulgt av enter:
 
 ```
 ~\clean-architecture\src\Web> dotnet run
 ```
 
-- Something like this should display in the console:
+- Noe som dette bør vises i konsollet:
 
 ```
 info: Microsoft.Hosting.Lifetime[14]
@@ -47,8 +47,23 @@ info: Microsoft.Hosting.Lifetime[0]
       Content root path: C:\dev\clean-architecture\src\Web\
 ```
 
-- By navigating to `https://localhost:7233/swagger/index.html` you should be able to se the openapi specification for the api
+- OpenAPI-spec: `https://localhost:7233/swagger/index.html` 
 
 ## Postman collection
 
-The `clean-architecture-postman-collection.json` is a postman collection with resources to represent the different use cases in the workshop.
+`clean-architecture-postman-collection.json` er en postman collection med ressurser som representerer de ulike use casene i workshopen.
+
+# Use caser for workshopen
+- (En kunde skal kunne opprettes fra et navn, legal id, legal country.)
+- (En kunde skal kunne hentes vha id)
+- Alle kunder skal kunne hentes ut
+- En kunde skal kunne ha en eller flere målepunkter knyttet til seg (kun målepunkt med unike ider skal være lov). 
+- En kunde skal kunne få nye målepunkter (f.eks. en ny hytte) på hvilket som helst tidspunkt. 
+- En kunde skal kunne si opp et målepunkt og beholde eventuelle andre målepunkter. 
+- En kunde skal kunne se hva forbruket har vært på et gitt målepunkt i et gitt tidsrom.
+
+Ekstra
+- En kunde skal kunne se detaljer om alle målepunktene sine (strømsone, anleggsaddresse, et egendefinert navn f.eks. «hytta», status, type). 
+- En kunde skal kunne se hva han har betalt for strøm i en periode (hint: forbruk og spotpris)
+
+
