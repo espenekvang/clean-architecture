@@ -10,7 +10,7 @@ namespace Domain.UnitTests.ValueTypes
         public void Ctr_MeasuringPointIdIs16Digits_ReturnTrue()
         {
             //arrange
-            const ulong measuringPointIdNumber = 1234567890123456;
+            const string measuringPointIdNumber = "1234567890123456";
 
             //act
             var (successful, measuringPointId) = MeteringPointId.TryCreateMeasuringPointId(measuringPointIdNumber);
@@ -24,7 +24,7 @@ namespace Domain.UnitTests.ValueTypes
         public void Ctr_MeasuringPointIdIs10Digits_ReturnFalse()
         {
             //arrange
-            const ulong measuringPointIdNumber = 1234567890;
+            const string measuringPointIdNumber = "1234567890";
 
             //act
             var (successful, measuringPointId) = MeteringPointId.TryCreateMeasuringPointId(measuringPointIdNumber);

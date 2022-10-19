@@ -1,22 +1,16 @@
 ﻿namespace Domain.ValueTypes
 {
-    public record MeteringPointId
+    public record MeteringPointId (string Value)
     {
-        public readonly ulong Value;
         private const double RequiredNumberOfDigits = 16;
 
-        private MeteringPointId(ulong value)
-        {
-            Value = value;
-        }
-
         public static (bool successful, MeteringPointId measuringPointId) TryCreateMeasuringPointId(
-            ulong measuringPointIdNumber)
+            string measuringPointIdNumber)
         {
             var validMeasuringPointId = Math.Floor(
-                Math.Log10(measuringPointIdNumber) + 1) == RequiredNumberOfDigits;
+                Math.Log10(ulong.Parse(measuringPointIdNumber)) + 1) == RequiredNumberOfDigits;
 
-            return validMeasuringPointId ? (true, new MeteringPointId(measuringPointIdNumber)) : (false, default(MeteringPointId));
+            return validMeasuringPointId ? (true, new MeteringPointId(measuringPointIdNumber.ToString())) : (false, default(MeteringPointId));
         }
     }
 }

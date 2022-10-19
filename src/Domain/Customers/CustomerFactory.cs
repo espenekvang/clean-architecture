@@ -1,15 +1,15 @@
 ﻿using Domain.ValueTypes;
 
-namespace Domain.Customer
+namespace Domain.Customers
 {
     public class CustomerFactory
     {
-        public static Customer Create(string name, string customerId, string country)
+        public static Customer Create(string name, CustomerId customerId, string country)
         {
             return new Customer(
                 new CustomerEntity(
                     CustomerName.From(name),
-                    CustomerId.From(customerId),
+                    customerId,
                     Country.From(country)
                 )
             );

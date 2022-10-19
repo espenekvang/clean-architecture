@@ -1,4 +1,7 @@
-﻿using Application.Customer;
+﻿using Application;
+using Application.Customers.Commands;
+using Application.Customers.Queries;
+using Domain.Customers;
 using Microsoft.AspNetCore.Mvc;
 using Web.Requests;
 
@@ -11,38 +14,60 @@ namespace Web.Controllers
         internal static class Route
         {
             public const string GetCustomer = "GetCustomer";
+            public const string GetCustomers = "GetCustomers";
         }
 
         private readonly ILogger<CustomersController> _logger;
-        private readonly CreateCustomerUseCase _createCustomerUseCase;
+        private readonly ICommandHandler<CreateCustomerCommand> _createCustomerHandler;
+        private readonly IQueryHandler<GetCustomerQuery, Customer?> _getCustomerHandler;
 
-        public CustomersController(ILogger<CustomersController> logger, CreateCustomerUseCase createCustomerUseCase)
+        public CustomersController(
+            ILogger<CustomersController> logger, 
+            ICommandHandler<CreateCustomerCommand> createCustomerHandler, 
+            IQueryHandler<GetCustomerQuery, Customer?> getCustomerHandler)
         {
             _logger = logger;
-            _createCustomerUseCase = createCustomerUseCase;
+            _createCustomerHandler = createCustomerHandler;
+            _getCustomerHandler = getCustomerHandler;
         }
 
         [HttpGet]
         [Route("{customerId}", Name = Route.GetCustomer)]
-        public IActionResult Get(string customerId)
+        public async Task<IActionResult> Get(string customerId, CancellationToken ct)
         {
-            return Ok(customerId);
+            var customer = await _getCustomerHandler.Handle(GetCustomerQuery.With(customerId), ct);
+
+            if (customer != null)
+            {
+                return Ok(new
+                {
+                    Id = customer.Id.Value,
+                    Name = customer.Name.Value,
+                    Country = customer.Country.Name
+                });
+            }
+
+            return NotFound();
         }
 
         [HttpPost]
-        public IActionResult Create(CreateCustomerRequest request)
+        public async Task<IActionResult> Create(CreateCustomerRequest request, CancellationToken ct)
         {
-                var (success, customerId, message ) = _createCustomerUseCase.Create(request.Name, request.CustomerId, request.Country);
-
-                if (success)
-                {
-                    _logger.LogInformation("Customer with id {0} created", customerId);
-                    return CreatedAtRoute(Route.GetCustomer, new { customerId = customerId.Value }, customerId);
-                }
-
-                _logger.LogError(message);
-                return BadRequest(message);
-
+            try
+            {
+                await _createCustomerHandler.Handle(CreateCustomerCommand.With(request.Name, request.CustomerId, request.Country), ct);
+                return CreatedAtRoute(Route.GetCustomer, new { customerId = request.CustomerId }, request.CustomerId);
+            }
+            catch (TaskCanceledException cte)
+            {
+                _logger.LogError(cte, cte.Message);
+                return StatusCode(499); //Client Closed Request
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Unable to create customer. Message was: {e.Message}");
+                return BadRequest($"Unable to create customer because of: {e.Message}");
+            }
         }
     }
 }
