@@ -56,14 +56,11 @@ info: Microsoft.Hosting.Lifetime[0]
 # Use caser for workshopen
 - (En kunde skal kunne opprettes fra et navn, legal id, legal country.)
 - (En kunde skal kunne hentes vha id)
-- Alle kunder skal kunne hentes ut
-- En kunde skal kunne ha en eller flere målepunkter knyttet til seg (kun målepunkt med unike ider skal være lov). 
-- En kunde skal kunne få nye målepunkter (f.eks. en ny hytte) på hvilket som helst tidspunkt. 
+- Alle kunder skal kunne hentes ut 
+- En kunde skal kunne få lagt til målepunkter (id, navn, addresse, strømsone).
 - En kunde skal kunne si opp et målepunkt og beholde eventuelle andre målepunkter. 
+- En kunde skal kunne se detaljer om alle målepunktene sine (strømsone, anleggsaddresse, et egendefinert navn f.eks. «hytta», status, type). 
 - En kunde skal kunne se hva forbruket har vært på et gitt målepunkt i et gitt tidsrom.
 
-Ekstra
-- En kunde skal kunne se detaljer om alle målepunktene sine (strømsone, anleggsaddresse, et egendefinert navn f.eks. «hytta», status, type). 
-- En kunde skal kunne se hva han har betalt for strøm i en periode (hint: forbruk og spotpris)
 
 

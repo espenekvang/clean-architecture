@@ -27,14 +27,6 @@ namespace Infrastructure.Database
 
         }
 
-        public async Task<IEnumerable<Customer>> FindAllAsync()
-        {
-            await using var connection = new SqliteConnection(_configuration.GetConnectionString("PowerDb"));
-            const string sql = "SELECT C.NAME AS NAME, C.CUSTOMER_ID AS CUSTOMERID, C.COUNTRY AS COUNTRY " +
-                               "FROM CUSTOMER C";
-            return (await connection.QueryAsync<Customer>(sql)).ToList();
-        }
-
         public async Task SaveAsync(Customer customer)
         {
             using var transactionScope = new TransactionScope();
@@ -42,35 +34,6 @@ namespace Infrastructure.Database
             await SaveCustomerEntityAsync(customer);
 
             transactionScope.Complete();
-        }
-
-        public async Task UpdateAsync(Customer customer)
-        {
-            var existingCustomer = await FindByIdAsync(customer.Id);
-            if (existingCustomer != null)
-            {
-                using var transactionScope = new TransactionScope();
-                
-                await UpdateCustomerEntityAsync(existingCustomer);
-
-                transactionScope.Complete();
-            }
-        }
-
-        private async Task UpdateCustomerEntityAsync(Customer customer)
-        {
-            await using var connection = new SqliteConnection(_configuration.GetConnectionString("PowerDb"));
-
-            await connection.ExecuteAsync(
-                "UPDATE CUSTOMER " +
-                "SET Name=@Name, Country=@Country " +
-                "WHERE CUSTOMER_ID=@Id",
-                new
-                {
-                    Name = customer.Name.Value, 
-                    Country = customer.Country.Name,
-                    Id = customer.Id.Value,
-                });
         }
 
         private async Task SaveCustomerEntityAsync(Customer customer)

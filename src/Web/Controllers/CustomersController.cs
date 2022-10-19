@@ -20,18 +20,15 @@ namespace Web.Controllers
         private readonly ILogger<CustomersController> _logger;
         private readonly ICommandHandler<CreateCustomerCommand> _createCustomerHandler;
         private readonly IQueryHandler<GetCustomerQuery, Customer?> _getCustomerHandler;
-        private readonly IQueryHandler<GetCustomersQuery, IEnumerable<Customer>> _getCustomersHandler;
 
         public CustomersController(
             ILogger<CustomersController> logger, 
             ICommandHandler<CreateCustomerCommand> createCustomerHandler, 
-            IQueryHandler<GetCustomerQuery, Customer?> getCustomerHandler,
-            IQueryHandler<GetCustomersQuery, IEnumerable<Customer>> _getCustomersHandler)
+            IQueryHandler<GetCustomerQuery, Customer?> getCustomerHandler)
         {
             _logger = logger;
             _createCustomerHandler = createCustomerHandler;
             _getCustomerHandler = getCustomerHandler;
-            this._getCustomersHandler = _getCustomersHandler;
         }
 
         [HttpGet]
@@ -51,20 +48,6 @@ namespace Web.Controllers
             }
 
             return NotFound();
-        }
-
-        [HttpGet]
-        [Route("", Name = Route.GetCustomers)]
-        public async Task<IActionResult> Get(CancellationToken ct)
-        {
-            var customers = await _getCustomersHandler.Handle(new GetCustomersQuery(), ct);
-
-            return Ok(customers.Select(customer => new
-            {
-                Id = customer.Id.Value,
-                Name = customer.Name.Value,
-                Country = customer.Country.Name
-            }));
         }
 
         [HttpPost]
