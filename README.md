@@ -49,9 +49,15 @@ info: Microsoft.Hosting.Lifetime[0]
 
 - OpenAPI-spec: `https://localhost:7233/swagger/index.html` 
 
-## Postman collection
+## Postman-samling
 
-`clean-architecture-postman-collection.json` er en postman collection med ressurser som representerer de ulike use casene i workshopen.
+`clean-architecture-postman-collection.json` er en postman-samling med ressurser som representerer de ulike use casene i workshopen.
+Postman-samlingen benytter variabler i postman i enkelte av ressursene. Dersom man vil sette verdi på disse variablene så kan man gjøre det ved å:
+- klikk på "Environments" i Postman
+- i Environment-oversikten klikk på "Globals"
+- legg til ny variabel, f.eks `customerId` sett initial value til f.feks 42
+- trykk "Save"
+Når man nå velger å benytte en ressurs i samlingen som krever `customerId` vil den automatisk hentes fra Globals i Postman.
 
 # Use caser for workshopen
 - (En kunde skal kunne opprettes fra et navn, legal id, legal country.)
